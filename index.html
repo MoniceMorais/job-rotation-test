@@ -100,6 +100,35 @@
                 <h4>Questão 2</h4>
                 <hr>
 
+                <p>Digite um número para ter o retorno se ele pertence a sequencia de Fibonacci</p>
+
+                <div class="alert alert-primary" role="alert">
+                    O número deve ser menor que 999!
+                </div>
+
+                <form id="form-question-2" class="row g-3 needs-validation" novalidate>
+
+                    <div class="col-md-6">
+                        <label for="numberToCompare" class="form-label">Número a ser comparado</label>
+                        <input type="number" min="1" max="999" maxlength="3" class="form-control" id="numberToCompare"
+                            required>
+                        <div class="invalid-feedback">
+                            Por favor insira um numero válido.
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-success" type="submit">Resposta</button>
+                    </div>
+                </form>
+
+
+
+
+
+
+
+
+
 
                 <div id="scrollspyHeading4"></div>
                 <h4>Questão 3</h4>
@@ -127,6 +156,24 @@
                 </div>
                 <div class="modal-body">
                     <div id="txt-response-1" class="text-center"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="response-2" tabindex="-1" aria-labelledby="response-2-Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="response-2-Label">Resposta da quetão 2</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="txt-response-2" class="text-center"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK!</button>
@@ -173,25 +220,92 @@
         const bsCollapse = new bootstrap.Collapse(menuToggle, { toggle: false })
         navLinks.forEach((l) => {
             l.addEventListener('click', () => { bsCollapse.toggle() })
-        })
+        });
 
         const scrollSpy = new bootstrap.ScrollSpy(document.body, {
             target: '#navbar-example2'
-        })
+        });
 
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })();
+
+        // _____________ Questão 1 _____________ //
         $("#btn-response-1").click(function () {
             var soma = 0;
             var k = 0;
-            
+
 
             for (var indice = 13; k < indice;) {
                 k++;
                 soma += k;
             }
 
-            $("#txt-response-1").append("<h4>"+ soma +"</h4>");
+            $("#txt-response-1").append("<h4>" + soma + "</h4>");
         });
 
+        // _____________ Questão 2 _____________ //
+
+        function isFibonacci(num, a = 0, b = 1) {
+            if (num === 0 || num === 1) {
+                return true;
+            }
+
+            let nextNumber = a + b;
+
+            if (nextNumber === num) {
+                return true;
+            }
+            else if (nextNumber > num) {
+                return false;
+            }
+
+            return isFibonacci(num, b, nextNumber);
+        }
+
+        $(document).ready(function () {
+            $("#form-question-2").submit(function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                // Limpa a área que irá receber o resultado
+                $("#txt-response-2").html('');
+
+                // Garante no numero a ser comparado em int
+                let numberToCompare = parseInt($("#numberToCompare").val());
+
+                form = document.querySelector("#form-question-2");
+
+                if (form.checkValidity()) {
+                    if (isFibonacci(numberToCompare)) {
+                        $("#txt-response-2").append("<h4> O número " + numberToCompare + " pertence a sequencia</h4>");
+                    } else {
+                        $("#txt-response-2").append("<h4> O número " + numberToCompare + " <div class='text-danger'>não</div> pertence a sequencia</h4>");
+                    }
+                    $('#response-2').modal('show');
+                }
+            });
+        });
+
+
+
     </script>
+    
 </body>
 </html>
