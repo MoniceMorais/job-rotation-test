@@ -81,6 +81,7 @@
                 <!-- [end] Readme -->
 
 
+
                 <!-- [start] Questão 1 -->
                 <div id="scrollspyHeading2"></div>
                 <h4>Questão 1</h4>
@@ -93,10 +94,11 @@
                     data-bs-target="#response-1">
                     Resposta
                 </button>
+                <!-- [end] Questão 1 -->
 
 
 
-<!-- [start] Questão 2 -->
+                <!-- [start] Questão 2 -->
                 <div id="scrollspyHeading3"></div>
                 <h4>Questão 2</h4>
                 <hr>
@@ -108,7 +110,6 @@
                 </div>
 
                 <form id="form-question-2" class="row g-3 needs-validation" novalidate>
-
                     <div class="col-md-6">
                         <label for="numberToCompare" class="form-label">Número a ser comparado</label>
                         <input type="number" min="1" max="999" maxlength="3" class="form-control" id="numberToCompare"
@@ -121,16 +122,11 @@
                         <button class="btn btn-success" type="submit">Resposta</button>
                     </div>
                 </form>
+                <!-- [end] Questão 2 -->
 
 
 
-
-
-
-
-
-
-<!-- [start] Questão 3 -->
+                <!-- [start] Questão 3 -->
                 <div id="scrollspyHeading4"></div>
                 <h4>Questão 3</h4>
                 <hr>
@@ -171,7 +167,11 @@
                 <div class="text-success">20, 21, 22</div>
                 </p>
                 <br>
+                <!-- [end] Questão 3 -->
 
+
+
+                <!-- [start] Questão 4 -->
                 <div id="scrollspyHeading5"></div>
                 <h4>Questão 4</h4>
                 <hr>
@@ -212,14 +212,32 @@
                     Ribeirão Preto e o carro estará a uma distância de (1-0,421)d = 0,579d de Ribeirão Preto. Portanto,
                     o <b>carro estará mais próximo de Ribeirão Preto</b> quando os dois veículos se cruzarem.
                 </p>
+                <!-- [end] Questão 4 -->
 
-                <!-- [start] Questão 1 -->
+
+
+                <!-- [start] Questão 5 -->
                 <div id="scrollspyHeading6"></div>
                 <h4>Questão 5</h4>
                 <hr>
 
                 <p>Inverta os caracteres de um string</p>
 
+                <form id="form-question-5" class="row g-3 needs-validation" novalidate>
+                    <div class="col-md-6">
+                        <label for="stringToInvert" class="form-label">String</label>
+                        <input type="text" maxlength="1000" minlength="2" class="form-control" id="stringToInvert"
+                            required>
+                        <div class="invalid-feedback">
+                            Por favor insira um texto válido.
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-success" type="submit">Resposta</button>
+                    </div>
+                </form>
+
+                <!-- [end] Questão 5 -->
 
 
             </div>
@@ -255,6 +273,24 @@
                 </div>
                 <div class="modal-body">
                     <div id="txt-response-2" class="text-center"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="response-5" tabindex="-1" aria-labelledby="response-5-Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="response-5-Label">Resposta da quetão 5</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="txt-response-5" class="text-center"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK!</button>
@@ -384,7 +420,36 @@
             });
         });
 
+        // _____________ Questão 5 _____________ //
+        function reverseString(str) {
+            var newString = "";
 
+            for (var i = str.length - 1; i >= 0; i--) {
+                newString += str[i];
+            }
+
+            return newString;
+        }
+
+        $(document).ready(function () {
+            $("#form-question-5").submit(function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                // Limpa a área que irá receber o resultado
+                $("#txt-response-5").html('');
+
+                let stringToInvert = String($("#stringToInvert").val());
+
+                form = document.querySelector("#form-question-5");
+
+                if (form.checkValidity()) {
+                    let newString = reverseString(stringToInvert);
+                    $("#txt-response-5").append("<h4>" + newString + "</h4>");
+                    $('#response-5').modal('show');
+                }
+            });
+        });
 
     </script>
 
